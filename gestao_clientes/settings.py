@@ -139,4 +139,6 @@ LOGIN_REDIRECT_URL = 'lista_cliente'
 
 LOGOUT_REDIRECT_URL = 'home'
 
+DATABASE_URL = config('DATABASE_URL')
+
 DATABASES['default'] = dburl.config(conn_max_age=600, ssl_require=True)
