@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 from decouple import config
+import dj_database_url as dburl
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -138,3 +139,4 @@ LOGIN_REDIRECT_URL = 'lista_cliente'
 
 LOGOUT_REDIRECT_URL = 'home'
 
+DATABASES['default'] = dburl.config(conn_max_age=600, ssl_require=True)
