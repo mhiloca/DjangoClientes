@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cliente</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <ul>
+        {% for pessoa in pessoas.all %}
+        <a href="{% url 'cliente' pessoa.id %}">{{ pessoa.first_name }} {{ pessoa.last_name }}</a>
+        <li>{{ pessoa.age }} anos de idade</li>
+        <li>R$ {{ pessoa.salary}}</li>
+        <li>{{ pessoa.bio }}</li>
+        {% if pessoa.foto %}
+            <img src="{{ pessoa.foto.url }}" alt="{{ pessoa.first_name }}"/>
+        {% else %}
+            <br />
+        {% endif %}
+        <br />
+    {% endfor %}
+    </ul>
+    <a href="{% url 'novo_cliente' %}">Novo Cliente</a>
+    <br />
+    <a href="{% url 'home' %}">Homepage</a>
+</body>
+</html>

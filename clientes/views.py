@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
 
 from .models import Cliente
 from .forms import ClienteForm
@@ -6,12 +7,13 @@ from .forms import ClienteForm
 
 def lista_cliente(request):
     pessoas = Cliente.objects.all()
-    return render(request, 'cliente_list.html', {'pessoas': pessoas})
+    return render(request, 'lista_cliente.html', {'pessoas': pessoas})
 
-def pessoa(request, id):
+def cliente(request, id):
     pessoa = get_object_or_404(Cliente, pk=id)
-    return render(request, 'pessoa.html', {'pessoa': pessoa})
+    return render(request, 'cliente.html', {'pessoa': pessoa})
 
+@login_required
 def novo_cliente(request):
     novo_form = ClienteForm(request.POST or None, request.FILES or None)
 
@@ -20,6 +22,7 @@ def novo_cliente(request):
         return redirect('lista_cliente')
     return render(request, 'cliente_form.html', {'novo_form': novo_form})
 
+@login_required
 def update_cliente(request, id):
     pes = get_object_or_404(Cliente, pk=id)
     client_form = ClienteForm(
@@ -34,6 +37,7 @@ def update_cliente(request, id):
 
     return render(request, 'cliente_form.html', {'client_form': client_form, 'pes': pes})
 
+@login_required
 def delete_cliente(request, id):
     pessoa = get_object_or_404(Cliente, pk=id)
 

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    {% if pes %}
+    <h1 class="home">Cliente:</h1>
+    <form action="{% url 'update_cliente' pes.id %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ client_form.as_p }}
+        <button type="submit">Alterar</button>
+    </form>
+    {% else %}
+    <h1 class="home">Cadastro novo cliente:</h1>
+    <form action="{% url 'novo_cliente' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ novo_form.as_p }}
+        <button type="submit">Salvar</button>
+    {% endif %}
+    </form>
+</body>
+</html>

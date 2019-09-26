@@ -10,4 +10,4 @@ class Cliente(models.Model):
     foto = models.ImageField(upload_to='photos', blank=True, null=True)
 
     def __str__(self):
-        return self.first_name + ' '+ self.last_name
+        return self.first_name + ' ' + self.last_name
