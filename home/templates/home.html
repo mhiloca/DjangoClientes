@@ -1,18 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>HomePage</title>
-</head>
-<body>
-    <h1>Gestão de clientes</h1>
-    <h2>Seja bem vindo</h2>
 
-    <h3><a href="{% url 'lista_cliente' %}">Lista de clientes</a></h3>
-    {% if user.is_authenticated %}
+{% extends 'base.html' %}
+
+{% block main %}
+<h1>Gestão de clientes</h1>
+<h2>Seja bem vindo</h2>
+
+<h3><a href="{% url 'lista_cliente' %}">Lista de clientes</a></h3>
+{% if user.is_authenticated %}
     <a href="{% url 'logout' %}">Sair</a>
-    {% else %}
+{% else %}
     <a href="{% url 'login' %}">Entrar</a>
-    {% endif %}
-</body>
-</html>
+{% endif %}
+{% endblock %}
+
+
+

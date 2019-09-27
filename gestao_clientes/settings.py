@@ -25,9 +25,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=False, cast=bool)
+DEBUG = config('DEBUG', default=True, cast=bool)
 
-ALLOWED_HOSTS = ['gest-clients.herokuapp.com', '127.0.0.1',]
+ALLOWED_HOSTS = ['gest-clients.herokuapp.com', 'localhost',]
 
 
 # Application definition
@@ -139,6 +139,4 @@ LOGIN_REDIRECT_URL = 'lista_cliente'
 
 LOGOUT_REDIRECT_URL = 'home'
 
-DATABASE_URL = config('DATABASE_URL')
-
-DATABASES['default'] = dburl.config(conn_max_age=600, ssl_require=True)
+# DATABASES['default'] = dburl.config(conn_max_age=600, ssl_require=True)

@@ -1,20 +1,19 @@
 <!DOCTYPE html>
+{% extends 'base.html' %}
+
+{% block title %}Apagar cliente{% endblock %}
+{% block main %}
+
 {% load static %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Delete</title>
-    <link rel="stylesheet" href="{% static 'style.css' %}">
-</head>
-<body>
-    <h1 class="home">Tem certeza que quer deletar {{ pessoa.first_name }} {{ pessoa.last_name }}</h1>
-    <form action="{% url 'delete_cliente' pessoa.id %}" method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        <button type="submit">Sim</button>
-    </form>
-    <form action="{% url 'lista_cliente' %}" method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        <button type="submit">Não</button>
-    </form>
-</body>
-</html>
+
+<h1 class="home">Tem certeza que quer deletar {{ pessoa.first_name }} {{ pessoa.last_name }}</h1>
+<form action="{% url 'delete_cliente' pessoa.id %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <button type="submit">Sim</button>
+</form>
+<form action="{% url 'lista_cliente' %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <button type="submit">Não</button>
+</form>
+
+{% endblock %}
