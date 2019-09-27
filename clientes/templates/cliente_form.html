@@ -1,25 +1,31 @@
-<!DOCTYPE html>
-
 {% extends 'base.html' %}
+{% load bootstrap %}
 {% block title %}Formulario Cliente{% endblock %}
 {% block main %}
 
 {% load static %}
 
     {% if pes %}
+
     <h1 class="home">Cliente:</h1>
+
     <form action="{% url 'update_cliente' pes.id %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ client_form.as_p }}
-        <button type="submit" class="btn btn-light">Alterar</button>
+        {{ client_form|bootstrap }}
+        <button type="submit" class="btn btn-info">Alterar</button>
     </form>
+
     {% else %}
+
     <h1 class="home">Cadastro novo cliente:</h1>
+
     <form action="{% url 'novo_cliente' %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ novo_form.as_p }}
-        <button type="button" class="btn btn-light">Salvar</button>
+        {{ novo_form|bootstrap }}
+        <button type="submit" class="btn btn-info">Salvar</button>
+
     {% endif %}
+
     </form>
 
 {% endblock %}

@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'bootstrapform',
     'clientes',
     'home',
 ]
@@ -139,4 +140,7 @@ LOGIN_REDIRECT_URL = 'lista_cliente'
 
 LOGOUT_REDIRECT_URL = 'home'
 
+STATICFILES_DIRS = [
+    'statics',
+]
 # DATABASES['default'] = dburl.config(conn_max_age=600, ssl_require=True)

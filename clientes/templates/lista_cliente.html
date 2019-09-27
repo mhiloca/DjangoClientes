@@ -1,25 +1,25 @@
 <!DOCTYPE html>
-
 {% extends 'base.html' %}
-{% block title %}Lista Clientes{% endblock %}
 {% block main %}
 {% load static %}
-    <ul>
-        {% for pessoa in pessoas.all %}
-        <a href="{% url 'cliente' pessoa.id %}">{{ pessoa.first_name }} {{ pessoa.last_name }}</a>
+{% for pessoa in pessoas.all %}
+<div class="row">
+    <div class="col-sm">
+        <h2><a href="{% url 'cliente' pessoa.id %}">{{ pessoa.first_name }} {{ pessoa.last_name }}</a></h2>
+    </div>
+    <div class="col-sm">
         <li>{{ pessoa.age }} anos de idade</li>
         <li>R$ {{ pessoa.salary}}</li>
         <li>{{ pessoa.bio }}</li>
+    </div>
+    <div class="col-sm">
         {% if pessoa.foto %}
-            <img src="{{ pessoa.foto.url }}" alt="{{ pessoa.first_name }}"/>
+        <img src="{{ pessoa.foto.url }}" class="img-fluid" alt="{{ pessoa.first_name }}"/>
         {% else %}
-            <br />
         {% endif %}
         <br />
-    {% endfor %}
-    </ul>
-    <a href="{% url 'novo_cliente' %}">Novo Cliente</a>
-    <br />
-    <a href="{% url 'home' %}">Homepage</a>
-
+    </div>
+</div>
+<br /><br />
+{% endfor %}
 {% endblock %}

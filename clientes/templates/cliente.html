@@ -1,29 +1,32 @@
 <!DOCTYPE html>
-
 {% extends 'base.html' %}
-{% block title %}Cliente{% endblock %}
 {% block main %}
-{% load static %}
 
     <h1 class="home">{{ pessoa.first_name }} {{ pessoa.last_name }}</h1>
+
     <ul>
         <li>{{ pessoa.age }} anos de idade</li>
         <li>R$ {{ pessoa.salary }}</li>
         <li>{{ pessoa.bio }}</li>
     </ul>
+
     {% if pessoa.foto %}
+
     <img src="{{ pessoa.foto.url }}">
+
     <br /><br />
+
     {% else %}
     {% endif %}
+
     <form action="{% url 'update_cliente' pessoa.id %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-      <button type="button" class="btn btn-info">Alterar dados</button>
+      <button type="submit" class="btn btn-info">Alterar dados</button>
         <br /><br />
     </form>
     <form action="{% url 'delete_cliente' pessoa.id %}" method="GET" enctype="multipart/form-data">
         {% csrf_token %}
-        <button type="button" class="btn btn-info">Deletar cliente</button>
+        <button type="submit" class="btn btn-danger">Deletar cliente</button>
     </form>
 
 {% endblock %}
