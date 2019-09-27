@@ -143,4 +143,4 @@ LOGOUT_REDIRECT_URL = 'home'
 STATICFILES_DIRS = [
     'statics',
 ]
-# DATABASES['default'] = dburl.config(conn_max_age=600, ssl_require=True)
+DATABASES['default'] = dburl.config(conn_max_age=600, ssl_require=True)
