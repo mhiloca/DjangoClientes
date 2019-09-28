@@ -10,5 +10,6 @@ class ClienteForm(ModelForm):
             'age',
             'salary',
             'bio',
+            'doc',
             'foto'
         ]

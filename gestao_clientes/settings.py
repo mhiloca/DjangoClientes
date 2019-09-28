@@ -26,7 +26,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=False, cast=bool)
+DEBUG = config('DEBUG', default=True, cast=bool)
 
 ALLOWED_HOSTS = ['gest-clients.herokuapp.com', 'localhost',]
 
@@ -53,7 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    # 'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'gestao_clientes.urls'
@@ -82,7 +82,7 @@ WSGI_APPLICATION = 'gestao_clientes.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': config('DB_NAME'),
         'USER': config('DB_USER'),
         'PASSWORD': config('DB_PASS'),
@@ -129,11 +129,17 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
+# DATABASES['default'] = dburl.config(conn_max_age=600, ssl_require=True)
+
 STATIC_URL = '/static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'statics'),
+]
 
 MEDIA_URL = '/media/'
 
@@ -144,12 +150,6 @@ LOGIN_URL = '/accounts/login'
 LOGIN_REDIRECT_URL = 'lista_cliente'
 
 LOGOUT_REDIRECT_URL = 'home'
-
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'statics'),
-]
-
-DATABASES['default'] = dburl.config(conn_max_age=600, ssl_require=True)
 
 # Activate Django-Heroku
 django_heroku.settings(locals())
