@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import os
 from decouple import config
 import dj_database_url as dburl
-import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -28,7 +27,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=True, cast=bool)
 
-ALLOWED_HOSTS = ['gest-clients.herokuapp.com', 'localhost',]
+ALLOWED_HOSTS = ['gest-clients.herokuapp.com', 'localhost']
 
 
 # Application definition
@@ -43,6 +42,7 @@ INSTALLED_APPS = [
     'bootstrapform',
     'clientes',
     'home',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -53,7 +53,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'gestao_clientes.urls'
@@ -131,19 +130,23 @@ USE_TZ = True
 
 # DATABASES['default'] = dburl.config(conn_max_age=600, ssl_require=True)
 
-STATIC_URL = '/static/'
+AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
 
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'statics'),
-]
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
 
-MEDIA_URL = '/media/'
+AWS_LOCATION = 'static'
 
-MEDIA_ROOT = 'media'
+AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+
+AWS_DEFAULT_ACL = None
+
+DEFAULT_FILE_STORAGE = 'clientes.storage_backends.MediaStorage'
 
 LOGIN_URL = '/accounts/login'
 
@@ -151,5 +154,18 @@ LOGIN_REDIRECT_URL = 'lista_cliente'
 
 LOGOUT_REDIRECT_URL = 'home'
 
-# Activate Django-Heroku
-django_heroku.settings(locals())
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+)
+
+STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
+
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
+

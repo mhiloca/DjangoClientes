@@ -42,6 +42,7 @@ class Venda(models.Model):
         on_delete= models.PROTECT,
         db_constraint=False
     )
+    produtos = models.ManyToManyField(Produto, blank=True)
 
     def __str__(self):
         return self.numero
