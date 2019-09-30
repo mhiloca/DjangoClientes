@@ -128,7 +128,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-# DATABASES['default'] = dburl.config(conn_max_age=600, ssl_require=True)
+DATABASES['default'] = dburl.config(conn_max_age=600, ssl_require=True)
 
 AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
 
