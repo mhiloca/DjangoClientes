@@ -6,7 +6,7 @@
 
     {% if pes %}
 
-    <h1 class="home">Cliente:</h1>
+    <h1 class="home">{{ pes.first_name }}</h1>
 
     <form action="{% url 'update_cliente' pes.id %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}

@@ -3,8 +3,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'sticky-footer.css' %}"
+    <link rel="stylesheet" href="{% static 'sticky-footer.css' %}">
     <title>{% block title %}{% endblock%}</title>
 </head>
 <body class="site">
@@ -25,13 +26,15 @@
             </ul>
             <ul class="navbar-nav ml-auto">
                 {% if user.is_authenticated %}
-                <li class="navbar-text">{{ user.username }}</li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'logout' %}">sair</a>
+                    <a class="nav-link" href="#">{{ user.username }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="{% url 'logout' %}">sair</a>
                 </li>
                 {% else %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'login' %}">entrar</a>
+                    <a class="nav-link active" href="{% url 'login' %}">entrar</a>
                 </li>
                 {% endif %}
             </ul>
