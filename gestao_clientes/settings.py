@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 from decouple import config
-# from dj_database_url import parse as dburl
+from dj_database_url import config as dburl_config, parse as dburl_parse
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -79,15 +79,15 @@ WSGI_APPLICATION = 'gestao_clientes.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
+DATABASE_URL = config('DATABASE_URL')
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('DB_NAME'),
-        'USER': config('DB_USER'),
-        'PASSWORD': config('DB_PASS'),
-        'HOST': '127.0.0.1',
-        'PORT': '5433',
-    }
+    'default':
+        dburl_config(
+            default=DATABASE_URL,
+            conn_max_age=600,
+            ssl_require=True
+        ),
 }
 
 
@@ -127,8 +127,6 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
-
-# DATABASES['default'] = dburl.config(conn_max_age=600, ssl_require=True)
 
 AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
 
