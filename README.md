@@ -13,3 +13,8 @@ For all the plugins and modules used, refer to [requirements-dev](https://github
 and [requirements](https://github.com/mhiloca/DjangoClientes/blob/master/requirements.txt) files
 
 Click [here](https://gest-clients.herokuapp.com) for look at the project site
+
+login infos:
+
+username: admin
+password: senhateste
