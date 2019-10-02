@@ -13,3 +13,8 @@ class ClienteForm(ModelForm):
             'doc',
             'foto'
         ]
+
+class BuscaClienteForm(ModelForm):
+    class Meta:
+        model = Cliente
+        fields = ('first_name', 'last_name')

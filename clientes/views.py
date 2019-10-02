@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
 from .models import Cliente
-from .forms import ClienteForm
+from .forms import ClienteForm, BuscaClienteForm
 
 
 def lista_cliente(request):
@@ -46,3 +46,17 @@ def delete_cliente(request, id):
         return redirect('lista_cliente')
 
     return render(request, 'delete_cliente.html', {'pessoa': pessoa})
+
+
+@login_required
+def busca_cliente(request):
+    busca_form = BuscaClienteForm(request.POST or None)
+
+    if busca_form.is_valid():
+        fname = busca_form.instance.first_name
+        lname = busca_form.instance.last_name
+        pessoa = Cliente.objects.get(first_name__icontains=fname, last_name__icontains=lname)
+        return cliente(request, pessoa.id)
+
+    return render(request, 'busca_cliente.html', {'busca_form': busca_form})
+

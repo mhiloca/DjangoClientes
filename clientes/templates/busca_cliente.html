@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+{% block main %}
+
+{% load static %}
+
+
+    <h1 class="home">Busca cliente</h1>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ busca_form|bootstrap }}
+        <button type="submit" class="btn btn-info">Buscar</button>
+    </form>
+
+{% endblock %}
