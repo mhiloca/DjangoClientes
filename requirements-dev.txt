@@ -2,7 +2,7 @@ boto3==1.9.238
 botocore==1.12.238
 dj-database-url==0.5.0
 dj-static==0.0.6
-Django==2.2.5
+Django>=2.2.6,<2.3.0
 django-bootstrap-form==3.4
 django-storages==1.7.2
 docutils==0.15.2
