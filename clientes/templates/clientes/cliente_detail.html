@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block main %}
+
+<div align="center">
+    <h1>{{ object }}</h1>
+    <h3>{{ object.age }} anos</h3>
+    <h3>{{ my_variable }}</h3>
+    <h3>{{ now|date }}</h3>
+    {% if object.foto %}
+    <img src="{{object.foto.url}}" alt="Foto Teste">
+    {% endif %}
+    <br/><br/>
+    <form action="{% url 'cliente_update' object.pk %}" method="get" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="submit" value="Alterar Dados">
+    </form>
+    <br/>
+    <form action="{% url 'cliente_delete' object.pk %}" method="get">
+        <input type="submit" value="Delete">
+    </form>
+</div>
+
+
+{% endblock %}

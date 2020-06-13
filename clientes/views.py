@@ -1,17 +1,61 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.utils import timezone
+from django.urls import reverse_lazy
 
 from .models import Cliente
 from .forms import ClienteForm, BuscaClienteForm
+
+
+class ClienteList(ListView):
+    model = Cliente
+
+
+class ClienteCreate(CreateView):
+    model = Cliente
+    fields = [
+        'first_name', 'last_name', 'age',
+        'salary', 'bio', 'foto', 'doc'
+    ]
+    success_url = reverse_lazy('cliente_list')
+
+
+class ClienteDetail(DetailView):
+    model = Cliente
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['my_variable'] = 'Django rocks!'
+        context['now'] = timezone.now()
+        return context
+
+
+class ClienteUpdate(UpdateView):
+    model = Cliente
+    fields = [
+        'first_name', 'last_name', 'age',
+        'salary', 'bio', 'foto', 'doc'
+    ]
+    success_url = reverse_lazy('cliente_list')
+
+
+class ClienteDelete(DeleteView):
+    model = Cliente
+    success_url = reverse_lazy('cliente_list')
 
 
 def lista_cliente(request):
     pessoas = Cliente.objects.all()
     return render(request, 'lista_cliente.html', {'pessoas': pessoas})
 
+
 def cliente(request, id):
     pessoa = Cliente.objects.get(pk=id)
     return render(request, 'cliente.html', {'pessoa': pessoa})
+
 
 @login_required
 def novo_cliente(request):
@@ -21,6 +65,7 @@ def novo_cliente(request):
         novo_form.save()
         return redirect('lista_cliente')
     return render(request, 'cliente_form.html', {'novo_form': novo_form})
+
 
 @login_required
 def update_cliente(request, id):
@@ -36,6 +81,7 @@ def update_cliente(request, id):
         return redirect('lista_cliente')
 
     return render(request, 'cliente_form.html', {'client_form': client_form, 'pes': pes})
+
 
 @login_required
 def delete_cliente(request, id):
