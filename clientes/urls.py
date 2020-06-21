@@ -2,7 +2,7 @@ from django.urls import path
 from .views import lista_cliente, novo_cliente, update_cliente
 from .views import delete_cliente, cliente, busca_cliente
 from .views import ClienteDetail, ClienteList, ClienteCreate
-from .views import ClienteUpdate, ClienteDelete
+from .views import ClienteUpdate, ClienteDelete, DogList, ProdutoBulk
 
 urlpatterns = [
     path('<int:id>/', cliente, name='cliente'),
@@ -15,5 +15,7 @@ urlpatterns = [
     path('cliente_detail/<int:pk>/', ClienteDetail.as_view(), name='cliente_detail'),
     path('cliente_form/', ClienteCreate.as_view(), name='cliente_form'),
     path('cliente_update/<int:pk>/', ClienteUpdate.as_view(), name='cliente_update'),
-    path('cliente_delete/<int:pk>/', ClienteDelete.as_view(), name='cliente_delete')
+    path('cliente_delete/<int:pk>/', ClienteDelete.as_view(), name='cliente_delete'),
+    path('dogs_list/', DogList.as_view()),
+    path('cliente_bulk/', ProdutoBulk.as_view())
 ]

@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+
+{% load my_tags %}
+
+<footer class="footer text-center py-3">
+    <div class="container">
+        <span class="text-muted ">
+            {% footer_msg %}
+            {% the_time '%b, %d of 2020' as cur_date %} <br/>
+            {{ cur_date }}
+        </span>
+    </div>
+</footer>

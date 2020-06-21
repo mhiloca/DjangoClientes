@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %} Dogs List {% endblock %}
+
+{% block main %}
+
+<div aling="center">
+    <h1>Dog List</h1>
+    <ul class="list-group">
+    {% for dog in dogs %}
+
+        <li>dog.name</li>
+        <li>dog.age</li>
+
+    {% empty %}
+        <li>Sorry, no dogs registered! </li>
+    {% endfor %}
+    </ul>
+</div>
+
+{% endblock %}

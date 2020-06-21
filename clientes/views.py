@@ -1,17 +1,34 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from django.views.generic.list import ListView
+from django.views.generic import ListView, View
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.utils import timezone
 from django.urls import reverse_lazy
+from django.http import HttpResponse
 
-from .models import Cliente
+from .models import Cliente, Dogs, Produto
 from .forms import ClienteForm, BuscaClienteForm
+
+
+class ProdutoBulk(View):
+    def get(self, request):
+        produtos = ['Banana', 'Maça', 'Limão', 'Laranja', 'Pêra', 'Melancia']
+        precos = [0.98, 3.99, 2.99, 1.79, 6.99, 3.49]
+        list_produtos = [Produto(nome=prod, preco=prec) for prod, prec in zip(produtos, precos)]
+
+        Produto.objects.bulk_create(list_produtos)
+
+        return HttpResponse('It worked!')
 
 
 class ClienteList(ListView):
     model = Cliente
+    # queryset = Cliente.objects.filter(id=1000)
+
+
+class DogList(ListView):
+    model = Dogs
 
 
 class ClienteCreate(CreateView):
@@ -54,7 +71,8 @@ def lista_cliente(request):
 
 def cliente(request, id):
     pessoa = Cliente.objects.get(pk=id)
-    return render(request, 'cliente.html', {'pessoa': pessoa})
+    footer_msg = 'uma mensagem diferente pra cada página do site'
+    return render(request, 'cliente.html', {'pessoa': pessoa, 'footer_msg': footer_msg})
 
 
 @login_required

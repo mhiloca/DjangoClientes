@@ -46,3 +46,8 @@ class Venda(models.Model):
 
     def __str__(self):
         return self.numero
+
+
+class Dogs(models.Model):
+    name = models.CharField(max_length=250)
+    age = models.IntegerField()

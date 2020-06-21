@@ -1,11 +1,20 @@
 {% extends 'base.html' %}
+{% load my_tags %}
 
 {% block main %}
 
 <div align="center">
+
     <h1>Listagem de pessoas</h1>
-        {% for cliente in object_list %}
-        <a href="{% url 'cliente_detail' cliente.pk %}">{{ cliente }}</a> <br/>
+    {% if object_list|length >= 5 %}
+        <h2>You have so many clients registered!</h2>
+    {% endif %}
+    {% for cliente in object_list %}
+        <a href="{% url 'cliente_detail' cliente.pk %}"> <br/>
+            {{ cliente }}
+        </a>
+    {% empty %}
+        Sorry, there are no clients registered
     {% endfor %}
 </div>
 
