@@ -7,7 +7,7 @@ from django.utils import timezone
 from django.urls import reverse_lazy
 from django.http import HttpResponse
 
-from .models import Cliente, Dogs, Produto
+from .models import Cliente, Dogs, Produto, Venda
 from .forms import ClienteForm, BuscaClienteForm
 
 
@@ -43,10 +43,15 @@ class ClienteCreate(CreateView):
 class ClienteDetail(DetailView):
     model = Cliente
 
+    def get_object(self, queryset=None):
+        pk = self.kwargs.get(self.pk_url_kwarg)
+        return Cliente.objects.select_related('doc').get(pk=pk)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['my_variable'] = 'Django rocks!'
         context['now'] = timezone.now()
+        context['vendas'] = Venda.objects.get(cliente=self.object.id)
         return context
 
 

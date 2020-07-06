@@ -7,9 +7,18 @@
     <h3>{{ object.age }} anos</h3>
     <h3>{{ my_variable }}</h3>
     <h3>{{ now|date }}</h3>
+    <h4>{{ object.doc }}</h4>
     {% if object.foto %}
-    <img src="{{object.foto.url}}" alt="Foto Teste">
+    <img src="{{object.foto.url}}" class="img-fluid" alt="Foto Teste">
     {% endif %}
+    <br/>
+    {{ vendas }}
+    <ul>
+        {% for produto in vendas.produtos.all %}
+            <li>{{ produto.nome }}</li>
+        {% endfor %}
+    </ul>
+
     <br/><br/>
     <form action="{% url 'cliente_update' object.pk %}" method="get" enctype="multipart/form-data">
         {% csrf_token %}
