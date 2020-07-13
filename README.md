@@ -12,7 +12,7 @@ Exercise for learning how to deploy a django app in heroku.
 For all the plugins and modules used, refer to [requirements-dev](https://github.com/mhiloca/DjangoClientes/blob/master/requirements-dev.txt)
 and [requirements](https://github.com/mhiloca/DjangoClientes/blob/master/requirements.txt) files
 
-Click [here](https://gest-clients.herokuapp.com) for look at the project site
+Click [here](https://gest-clients.herokuapp.com) for a peek at the project site
 
 login infos:
 
